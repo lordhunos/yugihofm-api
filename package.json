@@ -1,0 +1,46 @@
+{
+  "name": "yugiohfm-api",
+  "version": "1.0.0",
+  "description": "Yu-Gi-Oh Forbidden Memories Database API created with NodeJs, Express and VueJS",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npm src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "author": "LordHunos <jf.lpzclfnt@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.10",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lordhunos/yugiohfm-api.git"
+  },
+  "keywords": [
+    "yu-gi-oh",
+    "forbidden",
+    "memories",
+    "psx",
+    "node",
+    "express",
+    "vue"
+  ],
+  "bugs": {
+    "url": "https://github.com/lordhunos/yugiohfm-api/issues"
+  },
+  "homepage": "https://github.com/lordhunos/yugiohfm-api#readme"
+}
