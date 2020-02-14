@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
-//require('dotenv').config()
 
-const role = process.env.DB_ROLE
+const authSource = process.env.DB_AUTH_SOURCE
+const user = process.env.DB_USER
+const pass = process.env.DB_PASS
 const protocol = process.env.DB_PROTOCOL
-const dbAdminUser = process.env.DB_ADMIN_USER
-const dbAdminPass = process.env.DB_ADMIN_PASS
 const dbHost = process.env.DB_HOST
 const dbPort = process.env.DB_PORT
 const dbName = process.env.DB_NAME
@@ -12,9 +11,9 @@ const mongoURI = protocol+'://'+dbHost+':'+dbPort+'/'+dbName
 console.log(mongoURI)
 
 const dbConfig = {
-    authSource: role,
-    user: dbAdminUser,
-    pass: dbAdminPass,
+    authSource,
+    user,
+    pass,
     useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,
