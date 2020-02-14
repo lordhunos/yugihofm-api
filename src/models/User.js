@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, default: null },
     provider: { type: String, default: 'local' }, 
     providerID: { type: String, delfaul: null },
-    profilePic: { type: String, default: process.env.DEFAULT_PROFILE_PIC }
+    profilePic: { type: String, default: process.env.DEFAULT_PROFILE_PIC },
+    roles: { type: [String], enum: ['admin', 'user'], default: 'user'}
 }, { timestamps: true })
 
 UserSchema.statics.existsUsername = async function(username) {

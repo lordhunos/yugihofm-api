@@ -44,6 +44,12 @@ app.use(passport.initialize())
 app.use('/api', [cardRoutes, rivalRoutes, fusionRoutes, deckRoutes, dropRoutes, equipmentRoutes, ritualRoutes])
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
+// app.get('/admin', 
+//     passport.authenticate('jwt-admin', { session: false }),
+//     (req, res) => {
+//         res.send('Admin')
+//     }
+// )
 
 //HTTPS Server Start
 https.createServer( { key, cert }, app )

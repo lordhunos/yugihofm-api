@@ -16,7 +16,7 @@ passport.use('new', new LocalStrategy(opts.local,
                 password: hashedPassword 
             })
             await user.save()
-            req.token = generateToken({ _id: user._id })
+            req.token = generateToken({ _id: user._id, roles: user.roles })
             done(null, user)
         }
         catch(e) {
@@ -30,7 +30,7 @@ passport.use('login', new LocalStrategy(opts.local,
         try{
             const user = await UserModel.findOne({username})
             if(! await user.comparePasswords(password)) done(null, false, { warning: 'Wrong password'})
-            req.token = generateToken({ _id: user._id })
+            req.token = generateToken({ _id: user._id, roles: user.roles })
             done(null, user)
         }
         catch(e) {
@@ -78,6 +78,21 @@ passport.use('jwt-delete', new JwtStrategy(opts.jwt,
             const user = await UserModel.findOne(query)
             if(!user) done(null, false)
             await UserModel.deleteOne(query)
+            done(null, user)
+        }
+        catch(e) {
+            done(e)
+        }
+    }
+))
+
+passport.use('jwt-admin', new JwtStrategy(opts.jwt,
+    async (jwt_payload, done) => {
+        try{
+            const query = { _id: jwt_payload._id }
+            const user = await UserModel.findOne(query)
+            if(!user) done(null, false)
+            if(user.roles.indexOf('admin') < 0) done(null, false)
             done(null, user)
         }
         catch(e) {
