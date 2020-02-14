@@ -2,5 +2,6 @@
 .env
 .vscode
 node_modules
+Cert
 src/public/img
 src/public/js

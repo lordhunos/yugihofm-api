@@ -8,6 +8,8 @@ const database = require('./database')
 const path = require('path')
 const morgan = require('morgan')
 const express = require('express')
+const fs = require('fs')
+const https = require('https')
 
 //Router files (to implement an index)
 const userRoutes = require('./routes/user')
@@ -26,8 +28,11 @@ const passport = require('./authenticators/strategies')
 database()
 
 const app = express()
-//Express variables
-app.set('port', process.env.PORT || 3000)
+app.set('http_port', process.env.HTTP_PORT || 4000)
+app.set('https_port', process.env.HTTPS_PORT || 8000)
+
+const key = fs.readFileSync(process.env.SERVER_KEY)
+const cert = fs.readFileSync(process.env.SERVER_CERT)
 
 //Middlewares
 app.use(morgan('dev'))
@@ -40,7 +45,12 @@ app.use('/api', [cardRoutes, rivalRoutes, fusionRoutes, deckRoutes, dropRoutes, 
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 
-//Server Start
-app.listen(app.get('port'), () => {
-    console.log('Server on port', app.get('port'))
+//HTTPS Server Start
+https.createServer( { key, cert }, app )
+.listen(app.get('https_port'), () => {
+    console.log('Server on https://localhost:'+app.get('https_port'))
+})
+//HTTP Server Start
+app.listen(app.get('http_port'), () => {
+    console.log('Server on http://localhost:'+app.get('http_port'))
 })
