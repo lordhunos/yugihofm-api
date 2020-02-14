@@ -11,6 +11,11 @@ module.exports = {
         else res.status(401).json({ message: 'Request must provide a valid Token' })
     },
 
+    ensureAdminPrivileges: (req, res, next) => {
+        if(req.user.roles.indexOf('admin') > -1) next()
+        else res.status(403).json({ message: 'User must have proper privileges' })
+    },
+
     sendSuccess: (req, res) => {
         const { username, email, profilePic } = req.user
         const resData = { 
